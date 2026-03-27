@@ -5,9 +5,12 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index.tsx";
 import BloodDonation from "./pages/BloodDonation.tsx";
-import WomenSafety from "./pages/WomenSafety.tsx";
-import SanitaryAwareness from "./pages/SanitaryAwareness.tsx";
-import ChildOldageHelp from "./pages/ChildOldageHelp.tsx";
+import WomenWelfare from "./pages/WomenWelfare.tsx";
+import ChildWelfare from "./pages/ChildWelfare.tsx";
+import ElderCare from "./pages/ElderCare.tsx";
+import DifferentlyAbled from "./pages/DifferentlyAbled.tsx";
+import FoodSecurity from "./pages/FoodSecurity.tsx";
+import CommunityDevelopment from "./pages/CommunityDevelopment.tsx";
 import DonatePage from "./pages/DonatePage.tsx";
 import SignIn from "./pages/SignIn.tsx";
 import About from "./pages/About.tsx";
@@ -25,9 +28,12 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/about" element={<About />} />
           <Route path="/blood-donation" element={<BloodDonation />} />
-          <Route path="/women-safety" element={<WomenSafety />} />
-          <Route path="/sanitary-awareness" element={<SanitaryAwareness />} />
-          <Route path="/child-oldage-help" element={<ChildOldageHelp />} />
+          <Route path="/women-welfare" element={<WomenWelfare />} />
+          <Route path="/child-welfare" element={<ChildWelfare />} />
+          <Route path="/elder-care" element={<ElderCare />} />
+          <Route path="/differently-abled" element={<DifferentlyAbled />} />
+          <Route path="/food-security" element={<FoodSecurity />} />
+          <Route path="/community-development" element={<CommunityDevelopment />} />
           <Route path="/donate" element={<DonatePage />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="*" element={<NotFound />} />

@@ -18,13 +18,16 @@ const Footer = () => {
           </div>
 
           <div>
-            <h4 className="font-heading text-base font-semibold mb-4 text-warm-gold">Quick Links</h4>
+            <h4 className="font-heading text-base font-semibold mb-4 text-warm-gold">Our Work</h4>
             <div className="flex flex-col gap-2">
               {[
                 { label: "Blood Donation", path: "/blood-donation" },
-                { label: "Women Safety", path: "/women-safety" },
-                { label: "Sanitary Awareness", path: "/sanitary-awareness" },
-                { label: "Child & Old Age Help", path: "/child-oldage-help" },
+                { label: "Women & Girls Welfare", path: "/women-welfare" },
+                { label: "Child Welfare & Education", path: "/child-welfare" },
+                { label: "Elder Care", path: "/elder-care" },
+                { label: "Differently Abled Support", path: "/differently-abled" },
+                { label: "Food Security", path: "/food-security" },
+                { label: "Community Development", path: "/community-development" },
               ].map((item) => (
                 <Link key={item.path} to={item.path} className="text-sm text-muted-foreground hover:text-warm-gold transition-colors">
                   {item.label}
