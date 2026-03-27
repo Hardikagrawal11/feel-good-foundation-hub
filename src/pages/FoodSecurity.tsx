@@ -53,10 +53,10 @@ const FoodSecurity = () => (
       </div>
     </section>
 
-    <section className="py-20">
-      <div className="container mx-auto px-4">
+    <section className="py-12 sm:py-16 md:py-20">
+      <div className="container mx-auto px-4 sm:px-6">
         <SectionHeader title="All Food Security Initiatives" subtitle="A comprehensive approach to ensuring no one in our community goes to bed hungry." />
-        <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 max-w-5xl mx-auto">
           {campaigns.filter(c => !c.highlight).map((item, i) => (
             <motion.div key={item.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="bg-card rounded-xl p-6 border border-border shadow-warm hover:shadow-warm-lg transition-all flex gap-4">
               <div className="w-12 h-12 rounded-lg bg-terra/10 flex items-center justify-center shrink-0">

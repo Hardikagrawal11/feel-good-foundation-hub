@@ -31,10 +31,10 @@ const ChildWelfare = () => (
       purpose="Child Welfare & Education"
     />
 
-    <section className="py-20">
-      <div className="container mx-auto px-4">
+    <section className="py-12 sm:py-16 md:py-20">
+      <div className="container mx-auto px-4 sm:px-6">
         <SectionHeader title="Child Labor Rehabilitation" subtitle="Our multi-step approach to rescuing, rehabilitating, and reintegrating children who have been subjected to child labor." />
-        <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 max-w-5xl mx-auto">
           {rehabWork.map((item, i) => (
             <motion.div key={item.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="bg-card rounded-xl p-6 border border-border shadow-warm hover:shadow-warm-lg transition-all flex gap-4">
               <div className="w-12 h-12 rounded-lg bg-destructive/10 flex items-center justify-center shrink-0">
@@ -50,10 +50,10 @@ const ChildWelfare = () => (
       </div>
     </section>
 
-    <section className="py-20 bg-gradient-warm">
-      <div className="container mx-auto px-4">
+    <section className="py-12 sm:py-16 md:py-20 bg-gradient-warm">
+      <div className="container mx-auto px-4 sm:px-6">
         <SectionHeader title="Education Access Programs" subtitle="Ensuring every child—regardless of background—has the right and resources to learn, grow, and dream." />
-        <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 max-w-5xl mx-auto">
           {educationWork.map((item, i) => (
             <motion.div key={item.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="bg-card rounded-xl p-6 border border-border shadow-warm hover:shadow-warm-lg transition-all flex gap-4">
               <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
