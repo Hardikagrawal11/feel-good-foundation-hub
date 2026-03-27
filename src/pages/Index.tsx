@@ -33,21 +33,21 @@ const Index = () => {
       <Navbar />
 
       {/* Hero */}
-      <section className="relative h-[85vh] min-h-[600px] flex items-center overflow-hidden">
+      <section className="relative h-[60vh] sm:h-[70vh] md:h-[85vh] min-h-[400px] sm:min-h-[500px] md:min-h-[600px] flex items-center overflow-hidden">
         <img src={heroBg} alt="Feel Good Foundation Community" className="absolute inset-0 w-full h-full object-cover" width={1920} height={1080} />
         <div className="absolute inset-0 bg-foreground/50" />
-        <div className="relative z-10 container mx-auto px-4">
+        <div className="relative z-10 container mx-auto px-4 sm:px-6">
           <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="max-w-2xl">
-            <h1 className="font-heading text-4xl md:text-6xl font-bold text-secondary leading-tight mb-6">
+            <h1 className="font-heading text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-secondary leading-tight mb-4 sm:mb-6">
               Feel Good Foundation:{" "}
               <span className="text-gradient-gold">Serving Community</span> With Compassion
             </h1>
-            <p className="text-secondary/80 text-lg mb-8 leading-relaxed">
+            <p className="text-secondary/80 text-sm sm:text-base md:text-lg mb-6 sm:mb-8 leading-relaxed">
               We believe in creating a better world through blood donation, women's welfare, child education, food security, and care for the differently abled & elderly.
             </p>
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4">
               <DonateButton size="lg" />
-              <Link to="/about" className="inline-flex items-center gap-2 bg-secondary/20 backdrop-blur-sm text-secondary px-8 py-4 rounded-lg text-lg font-semibold hover:bg-secondary/30 transition-all border border-secondary/30">
+              <Link to="/about" className="inline-flex items-center justify-center gap-2 bg-secondary/20 backdrop-blur-sm text-secondary px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-base sm:text-lg font-semibold hover:bg-secondary/30 transition-all border border-secondary/30">
                 Learn More <ArrowRight size={20} />
               </Link>
             </div>
@@ -58,10 +58,10 @@ const Index = () => {
       <ImpactStats />
 
       {/* Our Domains */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
+      <section className="py-12 sm:py-16 md:py-20">
+        <div className="container mx-auto px-4 sm:px-6">
           <SectionHeader title="Our Domains" subtitle="We work across seven key areas to create lasting positive impact in our communities." />
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
             {domains.map((domain, i) => (
               <DomainCard key={domain.path} {...domain} index={i} />
             ))}
@@ -70,11 +70,11 @@ const Index = () => {
       </section>
 
       {/* About Snippet */}
-      <section className="py-20 bg-gradient-warm">
-        <div className="container mx-auto px-4">
+      <section className="py-12 sm:py-16 md:py-20 bg-gradient-warm">
+        <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto text-center">
             <SectionHeader title="About Feel Good Foundation" subtitle="Founded with a mission to uplift communities, Feel Good Foundation has been serving society through organized camps, awareness programs, and direct assistance." />
-            <div className="grid md:grid-cols-3 gap-6 mt-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mt-8 sm:mt-10">
               {[
                 { title: "Our Mission", text: "To create sustainable change by empowering communities through health, safety, education, and food security initiatives." },
                 { title: "Our Vision", text: "A world where every individual has access to healthcare, safety, education, and dignified living regardless of ability, age, or gender." },

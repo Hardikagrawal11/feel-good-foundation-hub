@@ -4,9 +4,9 @@ import logo from "@/assets/logo.png";
 
 const Footer = () => {
   return (
-    <footer className="bg-foreground text-secondary py-16">
-      <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-4 gap-10">
+    <footer className="bg-foreground text-secondary py-10 sm:py-12 md:py-16">
+      <div className="container mx-auto px-4 sm:px-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10">
           <div>
             <div className="flex items-center gap-2 mb-4">
               <img src={logo} alt="Feel Good Foundation" className="h-10 w-10" />
@@ -57,7 +57,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-secondary/20 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-secondary/20 flex flex-col md:flex-row justify-between items-center gap-3 sm:gap-4">
           <p className="text-sm text-muted-foreground">© 2026 Feel Good Foundation. All rights reserved.</p>
           <p className="text-sm text-muted-foreground flex items-center gap-1">
             Made with <Heart size={14} className="text-primary fill-primary" /> for the community

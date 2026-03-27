@@ -11,9 +11,9 @@ const stats = [
 ];
 
 const ImpactStats = () => (
-  <section className="py-16 bg-gradient-warm">
-    <div className="container mx-auto px-4">
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+  <section className="py-10 sm:py-12 md:py-16 bg-gradient-warm">
+    <div className="container mx-auto px-4 sm:px-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
         {stats.map((stat, i) => (
           <motion.div
             key={stat.label}
@@ -23,9 +23,9 @@ const ImpactStats = () => (
             transition={{ delay: i * 0.08, duration: 0.4 }}
             className="bg-card rounded-xl p-5 text-center shadow-warm hover:shadow-warm-lg transition-all duration-300 border border-border"
           >
-            <stat.icon className={`mx-auto mb-2 ${stat.color}`} size={30} />
-            <p className="font-heading text-2xl font-bold text-foreground">{stat.value}</p>
-            <p className="text-xs text-muted-foreground mt-1">{stat.label}</p>
+            <stat.icon className={`mx-auto mb-2 ${stat.color}`} size={24} />
+            <p className="font-heading text-xl sm:text-2xl font-bold text-foreground">{stat.value}</p>
+            <p className="text-[10px] sm:text-xs text-muted-foreground mt-1">{stat.label}</p>
           </motion.div>
         ))}
       </div>

@@ -31,13 +31,13 @@ const FoodSecurity = () => (
     {/* Meals to Heal highlight */}
     <section className="py-16 bg-gradient-warm">
       <div className="container mx-auto px-4">
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-4xl mx-auto bg-card rounded-2xl p-8 md:p-10 border-2 border-primary/30 shadow-warm-lg text-center">
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-4xl mx-auto bg-card rounded-2xl p-5 sm:p-8 md:p-10 border-2 border-primary/30 shadow-warm-lg text-center">
           <Utensils className="mx-auto mb-4 text-primary" size={48} />
-          <h2 className="font-heading text-3xl font-bold text-foreground mb-3">🍽️ Meals to Heal</h2>
+          <h2 className="font-heading text-2xl sm:text-3xl font-bold text-foreground mb-3">🍽️ Meals to Heal</h2>
           <p className="text-muted-foreground leading-relaxed max-w-2xl mx-auto mb-4">
             Our flagship campaign serves <span className="font-bold text-foreground">2,000+ hot meals daily</span> to homeless individuals, daily-wage workers, and families in crisis. Mobile kitchen vans operate across the city, reaching the most vulnerable—no one is turned away.
           </p>
-          <div className="flex justify-center gap-8 mt-6">
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-8 mt-6">
             {[
               { value: "2,000+", label: "Daily Meals" },
               { value: "5", label: "Kitchen Vans" },
