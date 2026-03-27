@@ -14,9 +14,9 @@ const SectionHeader = ({ title, subtitle, centered = true }: SectionHeaderProps)
     transition={{ duration: 0.5 }}
     className={`mb-10 ${centered ? "text-center" : ""}`}
   >
-    <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-3">{title}</h2>
-    <div className="w-20 h-1 bg-gradient-gold rounded-full mx-auto mb-4" />
-    {subtitle && <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed">{subtitle}</p>}
+    <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3">{title}</h2>
+    <div className="w-16 sm:w-20 h-1 bg-gradient-gold rounded-full mx-auto mb-4" />
+    {subtitle && <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed">{subtitle}</p>}
   </motion.div>
 );
 

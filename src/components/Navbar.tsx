@@ -24,7 +24,7 @@ const Navbar = () => {
 
   return (
     <nav className="sticky top-0 z-50 bg-card/95 backdrop-blur-md border-b border-border shadow-warm">
-      <div className="container mx-auto flex items-center justify-between py-3 px-4">
+      <div className="container mx-auto flex items-center justify-between py-2 sm:py-3 px-3 sm:px-4">
         <Link to="/" className="flex items-center gap-2">
           <img src={logo} alt="Feel Good Foundation" className="h-10 w-10" />
           <span className="font-heading text-lg font-bold text-foreground tracking-tight">

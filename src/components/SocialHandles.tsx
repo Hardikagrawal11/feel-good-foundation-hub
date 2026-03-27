@@ -11,10 +11,10 @@ const socials = [
 ];
 
 const SocialHandles = () => (
-  <section className="py-20 bg-card">
-    <div className="container mx-auto px-4">
+  <section className="py-12 sm:py-16 md:py-20 bg-card">
+    <div className="container mx-auto px-4 sm:px-6">
       <SectionHeader title="Connect With Us" subtitle="Follow our journey and stay updated on our community impact across social platforms." />
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-4xl mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 max-w-4xl mx-auto">
         {socials.map((social, i) => (
           <motion.a
             key={social.name}

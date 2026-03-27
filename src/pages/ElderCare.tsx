@@ -26,10 +26,10 @@ const ElderCare = () => (
       purpose="Elder Care"
     />
 
-    <section className="py-20">
-      <div className="container mx-auto px-4">
+    <section className="py-12 sm:py-16 md:py-20">
+      <div className="container mx-auto px-4 sm:px-6">
         <SectionHeader title="What We Do for Our Elders" subtitle="Comprehensive programs ensuring our senior community members live with dignity, health, and happiness." />
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
           {elderWork.map((item, i) => (
             <motion.div key={item.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="bg-card rounded-xl p-6 border border-border shadow-warm hover:shadow-warm-lg transition-all">
               <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">

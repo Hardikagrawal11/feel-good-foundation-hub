@@ -40,10 +40,10 @@ const WomenWelfare = () => (
     />
 
     {/* Resources Quick Cards */}
-    <section className="py-20">
-      <div className="container mx-auto px-4">
+    <section className="py-12 sm:py-16 md:py-20">
+      <div className="container mx-auto px-4 sm:px-6">
         <SectionHeader title="Resources & Helplines" subtitle="Immediate resources available for women in need of support." />
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 max-w-5xl mx-auto">
           {resources.map((r, i) => (
             <motion.div key={r.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="bg-card rounded-xl p-6 border border-border shadow-warm text-center hover:shadow-warm-lg transition-all">
               <r.icon className="mx-auto mb-3 text-primary" size={32} />
@@ -56,10 +56,10 @@ const WomenWelfare = () => (
     </section>
 
     {/* Women Safety Work */}
-    <section className="py-20 bg-gradient-warm">
-      <div className="container mx-auto px-4">
+    <section className="py-12 sm:py-16 md:py-20 bg-gradient-warm">
+      <div className="container mx-auto px-4 sm:px-6">
         <SectionHeader title="Women Safety — What We Do" subtitle="Our on-ground initiatives to create a safer environment for women and girls." />
-        <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 max-w-5xl mx-auto">
           {safetyWork.map((item, i) => (
             <motion.div key={item.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="bg-card rounded-xl p-6 border border-border shadow-warm hover:shadow-warm-lg transition-all flex gap-4">
               <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
@@ -76,10 +76,10 @@ const WomenWelfare = () => (
     </section>
 
     {/* Sanitary Awareness */}
-    <section className="py-20">
-      <div className="container mx-auto px-4">
+    <section className="py-12 sm:py-16 md:py-20">
+      <div className="container mx-auto px-4 sm:px-6">
         <div className="max-w-5xl mx-auto">
-          <div className="grid md:grid-cols-5 gap-8 items-center mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-6 sm:gap-8 items-center mb-8 sm:mb-12">
             <div className="md:col-span-2">
               <img src={sanitaryImg} alt="Sanitary Awareness" className="rounded-2xl shadow-warm-lg w-full h-64 object-cover" loading="lazy" />
             </div>
@@ -87,7 +87,7 @@ const WomenWelfare = () => (
               <SectionHeader title="Menstrual Hygiene Awareness" subtitle="Breaking taboos and ensuring every woman and girl has access to menstrual hygiene products and education." centered={false} />
             </div>
           </div>
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             {hygieneWork.map((item, i) => (
               <motion.div key={item.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="bg-card rounded-xl p-6 border border-border shadow-warm hover:shadow-warm-lg transition-all flex gap-4">
                 <div className="w-12 h-12 rounded-lg bg-olive/10 flex items-center justify-center shrink-0">

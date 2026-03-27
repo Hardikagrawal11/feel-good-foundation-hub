@@ -31,13 +31,13 @@ const FoodSecurity = () => (
     {/* Meals to Heal highlight */}
     <section className="py-16 bg-gradient-warm">
       <div className="container mx-auto px-4">
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-4xl mx-auto bg-card rounded-2xl p-8 md:p-10 border-2 border-primary/30 shadow-warm-lg text-center">
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-4xl mx-auto bg-card rounded-2xl p-5 sm:p-8 md:p-10 border-2 border-primary/30 shadow-warm-lg text-center">
           <Utensils className="mx-auto mb-4 text-primary" size={48} />
-          <h2 className="font-heading text-3xl font-bold text-foreground mb-3">🍽️ Meals to Heal</h2>
+          <h2 className="font-heading text-2xl sm:text-3xl font-bold text-foreground mb-3">🍽️ Meals to Heal</h2>
           <p className="text-muted-foreground leading-relaxed max-w-2xl mx-auto mb-4">
             Our flagship campaign serves <span className="font-bold text-foreground">2,000+ hot meals daily</span> to homeless individuals, daily-wage workers, and families in crisis. Mobile kitchen vans operate across the city, reaching the most vulnerable—no one is turned away.
           </p>
-          <div className="flex justify-center gap-8 mt-6">
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-8 mt-6">
             {[
               { value: "2,000+", label: "Daily Meals" },
               { value: "5", label: "Kitchen Vans" },
@@ -53,10 +53,10 @@ const FoodSecurity = () => (
       </div>
     </section>
 
-    <section className="py-20">
-      <div className="container mx-auto px-4">
+    <section className="py-12 sm:py-16 md:py-20">
+      <div className="container mx-auto px-4 sm:px-6">
         <SectionHeader title="All Food Security Initiatives" subtitle="A comprehensive approach to ensuring no one in our community goes to bed hungry." />
-        <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 max-w-5xl mx-auto">
           {campaigns.filter(c => !c.highlight).map((item, i) => (
             <motion.div key={item.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="bg-card rounded-xl p-6 border border-border shadow-warm hover:shadow-warm-lg transition-all flex gap-4">
               <div className="w-12 h-12 rounded-lg bg-terra/10 flex items-center justify-center shrink-0">

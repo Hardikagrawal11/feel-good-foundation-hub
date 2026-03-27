@@ -33,10 +33,10 @@ const BloodDonation = () => (
     />
 
     {/* What We Do */}
-    <section className="py-20">
-      <div className="container mx-auto px-4">
+    <section className="py-12 sm:py-16 md:py-20">
+      <div className="container mx-auto px-4 sm:px-6">
         <SectionHeader title="What We Do" subtitle="Our blood donation program is a lifeline for thousands. Here's how we make it happen." />
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
           {whatWeDo.map((item, i) => (
             <motion.div key={item.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="bg-card rounded-xl p-6 border border-border shadow-warm hover:shadow-warm-lg transition-all">
               <div className="w-12 h-12 rounded-lg bg-destructive/10 flex items-center justify-center mb-4">
@@ -51,8 +51,8 @@ const BloodDonation = () => (
     </section>
 
     {/* Upcoming Camps */}
-    <section className="py-20 bg-gradient-warm">
-      <div className="container mx-auto px-4">
+    <section className="py-12 sm:py-16 md:py-20 bg-gradient-warm">
+      <div className="container mx-auto px-4 sm:px-6">
         <SectionHeader title="Upcoming Camps" subtitle="Find a camp near you and register to donate blood." />
         <div className="max-w-3xl mx-auto space-y-4">
           {upcomingCamps.map((camp, i) => (
@@ -70,10 +70,10 @@ const BloodDonation = () => (
     </section>
 
     {/* Register Form */}
-    <section className="py-20">
-      <div className="container mx-auto px-4">
+    <section className="py-12 sm:py-16 md:py-20">
+      <div className="container mx-auto px-4 sm:px-6">
         <SectionHeader title="Register as Donor" subtitle="Fill in the form to register as a blood donor and receive notifications about upcoming camps." />
-        <motion.form initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-2xl mx-auto bg-card rounded-2xl p-8 border border-border shadow-warm-lg" onSubmit={(e) => e.preventDefault()}>
+        <motion.form initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-2xl mx-auto bg-card rounded-2xl p-5 sm:p-8 border border-border shadow-warm-lg" onSubmit={(e) => e.preventDefault()}>
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-foreground mb-1">First Name *</label>

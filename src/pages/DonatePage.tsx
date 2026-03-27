@@ -71,8 +71,8 @@ const DonatePage = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <section className="py-20">
-        <div className="container mx-auto px-4">
+      <section className="py-10 sm:py-16 md:py-20">
+        <div className="container mx-auto px-4 sm:px-6">
           {step === "form" ? (
             <>
               <SectionHeader title="Make a Donation" subtitle={`Your generous contribution to "${purpose}" helps us create lasting impact.`} />
@@ -80,7 +80,7 @@ const DonatePage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 onSubmit={handleDonate}
-                className="max-w-lg mx-auto bg-card rounded-2xl p-8 border border-border shadow-warm-lg"
+                className="max-w-lg mx-auto bg-card rounded-2xl p-5 sm:p-8 border border-border shadow-warm-lg"
               >
                 <div className="mb-6">
                   <label className="block text-sm font-medium text-foreground mb-1">Full Name *</label>
@@ -161,7 +161,7 @@ const DonatePage = () => {
               <h2 className="font-heading text-3xl font-bold text-foreground mb-2">Thank You!</h2>
               <p className="text-muted-foreground mb-8">Your donation has been received. Here's your auto-generated receipt.</p>
 
-              <div className="bg-card rounded-2xl p-8 border border-border shadow-warm-lg text-left mb-6">
+              <div className="bg-card rounded-2xl p-5 sm:p-8 border border-border shadow-warm-lg text-left mb-6">
                 <h3 className="font-heading text-xl font-bold text-foreground mb-4 text-center">Donation Receipt</h3>
                 <div className="w-16 h-0.5 bg-gradient-gold mx-auto rounded-full mb-6" />
                 <div className="space-y-3">
