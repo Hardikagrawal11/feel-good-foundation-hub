@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import PageBanner from "@/components/PageBanner";
 import DonateButton from "@/components/DonateButton";
 import SectionHeader from "@/components/SectionHeader";
+import CampaignsSection from "@/components/CampaignsSection";
 import foodImg from "@/assets/food-security.jpg";
 
 const campaigns = [
@@ -75,6 +76,7 @@ const FoodSecurity = () => (
       </div>
     </section>
 
+    <CampaignsSection domain="Food Security" />
     <Footer />
   </div>
 );

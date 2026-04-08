@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import PageBanner from "@/components/PageBanner";
 import DonateButton from "@/components/DonateButton";
 import SectionHeader from "@/components/SectionHeader";
+import CampaignsSection from "@/components/CampaignsSection";
 import abledImg from "@/assets/differently-abled.jpg";
 
 const programs = [
@@ -50,6 +51,7 @@ const DifferentlyAbled = () => (
       </div>
     </section>
 
+    <CampaignsSection domain="Differently Abled Support" />
     <Footer />
   </div>
 );

@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import PageBanner from "@/components/PageBanner";
 import DonateButton from "@/components/DonateButton";
 import SectionHeader from "@/components/SectionHeader";
+import CampaignsSection from "@/components/CampaignsSection";
 import womenImg from "@/assets/women-safety.jpg";
 import sanitaryImg from "@/assets/sanitary-awareness.jpg";
 
@@ -107,6 +108,7 @@ const WomenWelfare = () => (
       </div>
     </section>
 
+    <CampaignsSection domain="Women & Girls Welfare" />
     <Footer />
   </div>
 );

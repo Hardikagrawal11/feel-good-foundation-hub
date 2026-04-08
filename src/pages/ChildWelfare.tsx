@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import PageBanner from "@/components/PageBanner";
 import DonateButton from "@/components/DonateButton";
 import SectionHeader from "@/components/SectionHeader";
+import CampaignsSection from "@/components/CampaignsSection";
 import childImg from "@/assets/child-education.jpg";
 
 const rehabWork = [
@@ -72,6 +73,7 @@ const ChildWelfare = () => (
       </div>
     </section>
 
+    <CampaignsSection domain="Child Welfare & Education" />
     <Footer />
   </div>
 );
