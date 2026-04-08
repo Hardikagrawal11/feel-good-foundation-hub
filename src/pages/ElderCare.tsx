@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import PageBanner from "@/components/PageBanner";
 import DonateButton from "@/components/DonateButton";
 import SectionHeader from "@/components/SectionHeader";
+import CampaignsSection from "@/components/CampaignsSection";
 import elderImg from "@/assets/child-oldage.jpg";
 
 const elderWork = [
@@ -46,6 +47,7 @@ const ElderCare = () => (
       </div>
     </section>
 
+    <CampaignsSection domain="Elder Care" />
     <Footer />
   </div>
 );
