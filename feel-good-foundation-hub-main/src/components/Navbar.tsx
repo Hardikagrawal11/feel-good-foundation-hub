@@ -1,78 +1,49 @@
-import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ChevronDown, Heart } from "lucide-react";
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useUser, UserButton, SignInButton } from "@clerk/clerk-react";
+import { Menu, X, Heart, Languages } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const location = useLocation();
-
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const navLinks = [
-    { name: "Home", path: "/" },
-    { name: "About Us", path: "/about" },
-  ];
-
-  const workLinks = [
-    { name: "Blood Donation", path: "/blood-donation" },
-    { name: "Child Welfare", path: "/child-welfare" },
-    { name: "Elder Care", path: "/elder-care" },
-    { name: "Women Welfare", path: "/women-welfare" },
-    { name: "Food Security", path: "/food-security" },
-    { name: "Community Dev", path: "/community-development" },
-    { name: "Differently Abled", path: "/differently-abled" },
-  ];
+  const { isHindi, toggleLanguage } = useLanguage();
+  const { user, isSignedIn } = useUser();
+  const isAdmin = user?.primaryEmailAddress?.emailAddress === "vanshikarao.c@gmail.com";
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "bg-white/80 backdrop-blur-md shadow-sm py-3" : "bg-transparent py-5"}`}>
-      <div className="container mx-auto px-4 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2">
-          <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center"><Heart className="text-white" size={24} /></div>
-          <span className="font-heading font-bold text-xl text-foreground italic">Feel Good</span>
-        </Link>
-
-        <div className="hidden lg:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <Link key={link.path} to={link.path} className="text-sm font-medium hover:text-primary">{link.name}</Link>
-          ))}
-          <div className="relative group">
-            <button className="flex items-center gap-1 text-sm font-medium text-muted-foreground group-hover:text-primary">
-              Our Work <ChevronDown size={14} />
-            </button>
-            <div className="absolute top-full left-0 mt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all bg-white rounded-xl shadow-xl border p-2">
-              {workLinks.map((link) => (
-                <Link key={link.path} to={link.path} className="block px-4 py-2 text-sm rounded-lg hover:bg-primary/5 hover:text-primary">{link.name}</Link>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-4">
-          <SignedOut>
-            {/* FORCE REDIRECT TO ADMIN PORTAL ONCE LOGGED IN */}
-            <SignInButton mode="modal" forceRedirectUrl="/admin-portal">
-              <button className="text-sm font-semibold text-muted-foreground hover:text-primary">Sign In</button>
-            </SignInButton>
-          </SignedOut>
-          <SignedIn>
-            <div className="flex items-center gap-3">
-              <Link to="/admin-portal" className="text-xs font-bold text-primary border border-primary px-2 py-1 rounded hover:bg-primary/10">Admin</Link>
-              <UserButton afterSignOutUrl="/" />
-            </div>
-          </SignedIn>
-          <Link to="/donate">
-            <button className="bg-primary text-white px-6 py-2.5 rounded-full text-sm font-bold shadow-md hover:bg-primary/90">Donate Now</button>
+    <nav className="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between h-16 items-center">
+          <Link to="/" className="flex items-center gap-2">
+            <Heart className="text-red-500 w-6 h-6 fill-current" />
+            <span className="font-bold text-xl">
+              {isHindi ? "फील गुड" : "Feel Good"} <span className="text-primary">{isHindi ? "फाउंडेशन" : "Foundation"}</span>
+            </span>
           </Link>
+
+          <div className="hidden md:flex items-center gap-8">
+            <Link to="/" className="text-gray-600 hover:text-primary font-medium">{isHindi ? "होम" : "Home"}</Link>
+            <Link to="/campaigns" className="text-gray-600 hover:text-primary font-medium">{isHindi ? "अभियान" : "Campaigns"}</Link>
+            
+            <button onClick={toggleLanguage} className="flex items-center gap-1 text-sm bg-gray-100 px-3 py-1 rounded-full hover:bg-gray-200 transition-colors">
+              <Languages size={14} /> {isHindi ? "English" : "हिंदी"}
+            </button>
+
+            {isSignedIn && isAdmin && (
+              <Link to="/admin" className="bg-primary/10 text-primary px-4 py-2 rounded-lg font-bold">{isHindi ? "एडमिन हब" : "Admin Hub"}</Link>
+            )}
+
+            {isSignedIn ? (
+              <UserButton afterSignOutUrl="/" />
+            ) : (
+              <SignInButton mode="modal">
+                <button className="bg-primary text-white px-6 py-2 rounded-full font-semibold">{isHindi ? "साइन इन" : "Sign In"}</button>
+              </SignInButton>
+            )}
+          </div>
         </div>
       </div>
     </nav>
   );
 };
-
 export default Navbar;

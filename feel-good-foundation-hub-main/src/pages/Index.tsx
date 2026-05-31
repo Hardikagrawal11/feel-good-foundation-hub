@@ -1,13 +1,14 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Droplets, Shield, GraduationCap, Heart, Users, Utensils, Building, ArrowRight } from "lucide-react";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import { Droplets, Shield, GraduationCap, Heart, Users, Utensils, Building, ArrowRight, PawPrint } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 import ImpactStats from "@/components/ImpactStats";
 import DomainCard from "@/components/DomainCard";
 import SocialHandles from "@/components/SocialHandles";
 import DonateButton from "@/components/DonateButton";
 import SectionHeader from "@/components/SectionHeader";
+
+// Image Imports
 import heroBg from "@/assets/hero-bg.jpg";
 import bloodImg from "@/assets/blood-donation.jpg";
 import womenImg from "@/assets/women-safety.jpg";
@@ -16,39 +17,90 @@ import elderImg from "@/assets/child-oldage.jpg";
 import foodImg from "@/assets/food-security.jpg";
 import abledImg from "@/assets/differently-abled.jpg";
 import communityImg from "@/assets/community-dev.jpg";
-
-const domains = [
-  { title: "Blood Donation Camp", description: "Organizing regular blood donation camps to ensure life-saving blood supply reaches those in need.", image: bloodImg, path: "/blood-donation", icon: Droplets },
-  { title: "Women & Girls Welfare", description: "Empowering women through safety, menstrual hygiene awareness, self-defense training, and support networks.", image: womenImg, path: "/women-welfare", icon: Shield },
-  { title: "Child Welfare & Education", description: "Child labor rehabilitation, education access, and developmental programs for underprivileged children.", image: childImg, path: "/child-welfare", icon: GraduationCap },
-  { title: "Elder Care", description: "Providing compassionate care, companionship, and essential support to senior citizens.", image: elderImg, path: "/elder-care", icon: Heart },
-  { title: "Differently Abled Support", description: "Providing assistive devices, accessibility resources, and inclusive programs for the physically challenged.", image: abledImg, path: "/differently-abled", icon: Users },
-  { title: "Food Security", description: "Fighting hunger through the 'Meals to Heal' campaign and community food distribution drives.", image: foodImg, path: "/food-security", icon: Utensils },
-  { title: "Community Development", description: "Building stronger communities through infrastructure, skill-building, and collaborative development projects.", image: communityImg, path: "/community-development", icon: Building },
-];
+import animalImg from "@/assets/animal-welfare.jpg"; 
 
 const Index = () => {
+  const { isHindi } = useLanguage();
+
+  const domains = [
+    { 
+      title: isHindi ? "रक्तदान शिविर" : "Blood Donation Camp", 
+      description: isHindi ? "नियमित रक्तदान शिविरों का आयोजन।" : "Organizing regular blood donation camps to ensure life-saving blood supply.", 
+      image: bloodImg, 
+      path: "/campaigns/blood-donation", // Updated path
+      icon: Droplets 
+    },
+    { 
+      title: isHindi ? "महिला एवं बालिका कल्याण" : "Women & Girls Welfare", 
+      description: isHindi ? "सुरक्षा, स्वच्छता और आत्मरक्षा प्रशिक्षण के माध्यम से महिलाओं का सशक्तिकरण।" : "Empowering women through safety, hygiene awareness, and support networks.", 
+      image: womenImg, 
+      path: "/campaigns/women-welfare", // Updated path
+      icon: Shield 
+    },
+    { 
+      title: isHindi ? "बाल कल्याण और शिक्षा" : "Child Welfare & Education", 
+      description: isHindi ? "वंचित बच्चों के लिए शिक्षा और पुनर्वास कार्यक्रम।" : "Education access and developmental programs for underprivileged children.", 
+      image: childImg, 
+      path: "/campaigns/child-welfare", // Updated path
+      icon: GraduationCap 
+    },
+    { 
+      title: isHindi ? "पशु कल्याण" : "Animal Welfare", 
+      description: isHindi ? "बेसहारा जानवरों का बचाव और चिकित्सा सहायता।" : "Rescuing strays and providing medical aid to our voiceless friends.", 
+      image: animalImg, 
+      path: "/campaigns/animal-welfare", // Updated path
+      icon: PawPrint 
+    },
+    { 
+      title: isHindi ? "बुजुर्गों की देखभाल" : "Elder Care", 
+      description: isHindi ? "वरिष्ठ नागरिकों को सहायता और साथ प्रदान करना।" : "Providing compassionate care and support to senior citizens.", 
+      image: elderImg, 
+      path: "/campaigns/elder-care", // Updated path
+      icon: Heart 
+    },
+    { 
+      title: isHindi ? "दिव्यांग सहायता" : "Differently Abled Support", 
+      description: isHindi ? "दिव्यांगों के लिए समावेशी कार्यक्रम और संसाधन।" : "Providing inclusive programs and resources for the physically challenged.", 
+      image: abledImg, 
+      path: "/campaigns/differently-abled", // Updated path
+      icon: Users 
+    },
+    { 
+      title: isHindi ? "खाद्य सुरक्षा" : "Food Security", 
+      description: isHindi ? "सामुदायिक भोजन वितरण के माध्यम से भूख से लड़ना।" : "Fighting hunger through community food distribution drives.", 
+      image: foodImg, 
+      path: "/campaigns/food-security", // Updated path
+      icon: Utensils 
+    },
+    { 
+      title: isHindi ? "सामुदायिक विकास" : "Community Development", 
+      description: isHindi ? "बुनियादी ढांचे और कौशल निर्माण के माध्यम से समुदायों को मजबूत करना।" : "Building stronger communities through infrastructure and skill-building.", 
+      image: communityImg, 
+      path: "/campaigns/community-development", // Updated path
+      icon: Building 
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-background">
-      <Navbar />
-
-      {/* Hero */}
-      <section className="relative h-[60vh] sm:h-[70vh] md:h-[85vh] min-h-[400px] sm:min-h-[500px] md:min-h-[600px] flex items-center overflow-hidden">
-        <img src={heroBg} alt="Feel Good Foundation Community" className="absolute inset-0 w-full h-full object-cover" width={1920} height={1080} />
+      {/* Hero Section */}
+      <section className="relative h-[60vh] sm:h-[85vh] flex items-center overflow-hidden">
+        <img src={heroBg} alt="Hero" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-foreground/50" />
-        <div className="relative z-10 container mx-auto px-4 sm:px-6">
-          <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="max-w-2xl">
-            <h1 className="font-heading text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-secondary leading-tight mb-4 sm:mb-6">
-              Feel Good Foundation:{" "}
-              <span className="text-gradient-gold">Serving Community</span> With Compassion
+        <div className="relative z-10 container mx-auto px-4">
+          <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} className="max-w-2xl text-white">
+            <h1 className="font-heading text-3xl md:text-6xl font-bold mb-6">
+              {isHindi ? "फील गुड फाउंडेशन: सेवा और करुणा" : "Feel Good Foundation: Compassion in Action"}
             </h1>
-            <p className="text-secondary/80 text-sm sm:text-base md:text-lg mb-6 sm:mb-8 leading-relaxed">
-              We believe in creating a better world through blood donation, women's welfare, child education, food security, and care for the differently abled & elderly.
+            <p className="text-white/90 text-lg mb-8">
+              {isHindi 
+                ? "रक्तदान, महिला कल्याण और शिक्षा के माध्यम से समाज की सेवा।" 
+                : "Serving the community through blood donation, welfare, and education."}
             </p>
-            <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4">
+            <div className="flex gap-4">
               <DonateButton size="lg" />
-              <Link to="/about" className="inline-flex items-center justify-center gap-2 bg-secondary/20 backdrop-blur-sm text-secondary px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-base sm:text-lg font-semibold hover:bg-secondary/30 transition-all border border-secondary/30">
-                Learn More <ArrowRight size={20} />
+              <Link to="/about" className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md text-white px-8 py-3 rounded-lg border border-white/20">
+                {isHindi ? "और जानें" : "Learn More"} <ArrowRight size={20} />
               </Link>
             </div>
           </motion.div>
@@ -57,11 +109,14 @@ const Index = () => {
 
       <ImpactStats />
 
-      {/* Our Domains */}
-      <section className="py-12 sm:py-16 md:py-20">
-        <div className="container mx-auto px-4 sm:px-6">
-          <SectionHeader title="Our Domains" subtitle="We work across seven key areas to create lasting positive impact in our communities." />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+      {/* Domains Grid */}
+      <section className="py-16">
+        <div className="container mx-auto px-4">
+          <SectionHeader 
+            title={isHindi ? "हमारे कार्यक्षेत्र" : "Our Domains"} 
+            subtitle={isHindi ? "हम इन क्षेत्रों में काम करते हैं।" : "We work across these key areas."} 
+          />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {domains.map((domain, i) => (
               <DomainCard key={domain.path} {...domain} index={i} />
             ))}
@@ -69,29 +124,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* About Snippet */}
-      <section className="py-12 sm:py-16 md:py-20 bg-gradient-warm">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-4xl mx-auto text-center">
-            <SectionHeader title="About Feel Good Foundation" subtitle="Founded with a mission to uplift communities, Feel Good Foundation has been serving society through organized camps, awareness programs, and direct assistance." />
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mt-8 sm:mt-10">
-              {[
-                { title: "Our Mission", text: "To create sustainable change by empowering communities through health, safety, education, and food security initiatives." },
-                { title: "Our Vision", text: "A world where every individual has access to healthcare, safety, education, and dignified living regardless of ability, age, or gender." },
-                { title: "Our Values", text: "Compassion, integrity, inclusivity, and transparency guide every action we take for the community." },
-              ].map((item, i) => (
-                <motion.div key={item.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15 }} className="bg-card rounded-xl p-6 border border-border shadow-warm">
-                  <h3 className="font-heading text-lg font-bold text-foreground mb-2">{item.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{item.text}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
       <SocialHandles />
-      <Footer />
     </div>
   );
 };
