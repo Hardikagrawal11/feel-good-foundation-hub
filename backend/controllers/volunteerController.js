@@ -3,20 +3,36 @@ const User = require('../models/User');
 // Register or toggle permanent volunteer status
 exports.registerVolunteer = async (req, res) => {
     try {
-        const { name, email } = req.body;
+        const { name, email, phone, address, skills, availability, bloodGroup, dob, idProof, action } = req.body;
         if (!name || !email) {
             return res.status(400).json({ message: "Name and email are required" });
         }
 
         let user = await User.findOne({ email: email.toLowerCase() });
 
-        if (user) {
-            // Toggle permanent volunteer status
-            user.isPermanentVolunteer = !user.isPermanentVolunteer;
+        if (action === "leave" && user) {
+            user.isPermanentVolunteer = false;
             await user.save();
             return res.status(200).json({
                 success: true,
-                message: user.isPermanentVolunteer ? "You are now a Permanent Volunteer!" : "Permanent volunteer status removed.",
+                message: "Permanent volunteer status removed.",
+                user
+            });
+        }
+
+        if (user) {
+            user.isPermanentVolunteer = true;
+            user.phone = phone || user.phone;
+            user.address = address || user.address;
+            user.skills = skills || user.skills;
+            user.availability = availability || user.availability;
+            user.bloodGroup = bloodGroup || user.bloodGroup;
+            user.dob = dob || user.dob;
+            user.idProof = idProof || user.idProof;
+            await user.save();
+            return res.status(200).json({
+                success: true,
+                message: "You are now a Permanent Volunteer!",
                 user
             });
         }
@@ -25,7 +41,8 @@ exports.registerVolunteer = async (req, res) => {
         user = new User({
             name,
             email: email.toLowerCase(),
-            isPermanentVolunteer: true
+            isPermanentVolunteer: true,
+            phone, address, skills, availability, bloodGroup, dob, idProof
         });
         await user.save();
         res.status(201).json({ success: true, message: "Registered as Permanent Volunteer!", user });

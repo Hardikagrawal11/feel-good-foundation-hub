@@ -1,24 +1,26 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Loader2, Droplet, PawPrint, Shield, GraduationCap, Heart, Users, Utensils, Building } from "lucide-react";
 import SectionHeader from "@/components/SectionHeader";
 import DonateButton from "@/components/DonateButton";
 import CampaignCard from "@/components/CampaignCard"; 
 import { useLanguage } from "@/context/LanguageContext";
-import { useUser } from "@clerk/clerk-react";
+import { useUser, useClerk } from "@clerk/clerk-react";
 
 const CampaignsPage = () => {
   const { domainId } = useParams(); // Gets 'blood-donation', 'animal-welfare', etc.
   const { isHindi } = useLanguage();
   const { user, isSignedIn } = useUser();
-  const [campaigns, setCampaigns] = useState([]);
+  const { openSignIn } = useClerk();
+  const navigate = useNavigate();
+  const [campaigns, setCampaigns] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   const isAdmin = user?.primaryEmailAddress?.emailAddress === "vanshikarao.c@gmail.com";
 
   // 1. Dynamic Page Content based on URL
-  const pageConfigs = {
+  const pageConfigs: Record<string, any> = {
     "blood-donation": {
       title: isHindi ? "रक्तदान" : "Blood Donation",
       icon: <Droplet className="text-red-600" />,
@@ -69,7 +71,7 @@ const CampaignsPage = () => {
     }
   };
 
-  const current = pageConfigs[domainId] || pageConfigs["blood-donation"];
+  const current = pageConfigs[domainId || "blood-donation"] || pageConfigs["blood-donation"];
 
   // 2. Backup Data for each domain
   const backupData = [
@@ -80,7 +82,7 @@ const CampaignsPage = () => {
       domain: current.dbName,
       date: "2026-06-20",
       location: "Nagpur City Center",
-      image: `https://source.unsplash.com/featured/?${domainId}`
+      image: `https://images.unsplash.com/photo-1488521787991-ed7bbaae773c`
     }
   ];
 
@@ -106,7 +108,7 @@ const CampaignsPage = () => {
       <section className={`py-24 bg-${current.color}-50/30 text-center`}>
         <div className="container mx-auto px-4">
           <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="flex justify-center mb-6">
-            <div className={`p-4 bg-white rounded-full shadow-lg`}>
+            <div className={`p-4 bg-card rounded-full shadow-lg border border-border`}>
               {current.icon}
             </div>
           </motion.div>
@@ -132,11 +134,14 @@ const CampaignsPage = () => {
       </section>
 
       {/* VOLUNTEER SECTION */}
-      {isSignedIn && !isAdmin && (
+      {!isAdmin && (
         <section className="container mx-auto px-4 pb-20">
-          <div className={`bg-${current.color}-50 border-2 border-${current.color}-100 p-10 rounded-[3rem] text-center`}>
-            <h2 className="text-3xl font-bold mb-4">{isHindi ? "स्वयंसेवक बनें" : "Become a Volunteer"}</h2>
-            <button className={`bg-${current.color}-600 text-white px-10 py-4 rounded-2xl font-bold`}>
+          <div className={`bg-${current.color}-50 dark:bg-card border-2 border-${current.color}-100 dark:border-border p-10 rounded-[3rem] text-center`}>
+            <h2 className="text-3xl font-bold mb-4 text-foreground">{isHindi ? "स्वयंसेवक बनें" : "Become a Volunteer"}</h2>
+            <button 
+              onClick={() => isSignedIn ? navigate("/profile") : openSignIn({ forceRedirectUrl: "/profile" })}
+              className={`bg-${current.color}-600 text-white px-10 py-4 rounded-2xl font-bold transition-all hover:scale-105 active:scale-95`}
+            >
               {isHindi ? "अभी जुड़ें" : "Join Now"}
             </button>
           </div>

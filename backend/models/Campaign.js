@@ -21,7 +21,8 @@ const CampaignSchema = new mongoose.Schema({
       "Food Security", 
       "Community Development", 
       "Differently Abled", 
-      "Women Welfare"
+      "Women Welfare",
+      "Animal Welfare"
     ]
   },
   participants: {

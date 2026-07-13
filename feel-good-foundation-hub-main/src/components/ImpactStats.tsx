@@ -11,7 +11,7 @@ const stats = [
 ];
 
 const ImpactStats = () => (
-  <section className="py-10 sm:py-12 md:py-16 bg-gradient-warm">
+  <section className="py-10 sm:py-12 md:py-16 bg-gradient-to-b from-background to-muted">
     <div className="container mx-auto px-4 sm:px-6">
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
         {stats.map((stat, i) => (

@@ -1,4 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
@@ -14,13 +15,38 @@ import SignInPage from "./pages/SignIn";
 import Profile from "./pages/Profile";
 
 function App() {
+  const [liveUpdates, setLiveUpdates] = useState<string>("🚀 Loading latest updates...");
+
+  useEffect(() => {
+    const fetchLatestCampaigns = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/campaigns");
+        const data = await response.json();
+        
+        if (Array.isArray(data) && data.length > 0) {
+          // Take the 5 most recent campaigns
+          const recentCampaigns = data.slice(0, 5);
+          const updateString = recentCampaigns.map((camp: any) => 
+            `🌟 LIVE CAMPAIGN: ${camp.title} (${camp.domain})`
+          ).join(" | ");
+          
+          setLiveUpdates(`${updateString} | ${updateString}`);
+        } else {
+          setLiveUpdates("🚀 Welcome to Feel Good Foundation! Register as a volunteer today!");
+        }
+      } catch (error) {
+        setLiveUpdates("🚀 Welcome to Feel Good Foundation! Register as a volunteer today!");
+      }
+    };
+    fetchLatestCampaigns();
+  }, []);
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
       {/* 4. Moving Activity Bar */}
       <div className="pt-16 bg-primary text-white py-2 font-bold shadow-md overflow-hidden whitespace-nowrap relative">
         <div className="inline-block animate-marquee px-4">
-          🚀 LATEST UPDATES: 🐾 15+ Strays rescued in Nagpur North | 🩸 Blood donation drive successful at RCOEM | 📚 50 Children enrolled in rural education program | ❤️ New donation received for Animal Shelter &nbsp;&nbsp;&nbsp;&nbsp;
-          🚀 LATEST UPDATES: 🐾 15+ Strays rescued in Nagpur North | 🩸 Blood donation drive successful at RCOEM | 📚 50 Children enrolled in rural education program | ❤️ New donation received for Animal Shelter
+          {liveUpdates} &nbsp;&nbsp;&nbsp;&nbsp; {liveUpdates}
         </div>
       </div>
 
@@ -45,7 +71,7 @@ function App() {
 
       {/* 10. WhatsApp Chatbot - REPLACE THE NUMBER BELOW */}
       <a 
-        href="https://wa.me/91XXXXXXXXXX?text=Hello! I want to volunteer/donate to Feel Good Foundation." 
+        href="https://wa.me/918767031255?text=Hello! I want to volunteer/donate to Feel Good Foundation." 
         target="_blank" 
         rel="noreferrer"
         className="fixed bottom-6 right-6 bg-[#25D366] text-white p-4 rounded-full shadow-2xl z-50 hover:scale-110 transition-transform flex items-center justify-center"

@@ -2,6 +2,11 @@ import type { Config } from "tailwindcss";
 
 export default {
   darkMode: ["class"],
+  safelist: [
+    {
+      pattern: /(bg|text|border)-(red|orange|pink|blue|purple|green|teal|indigo)-(50|100|600)/,
+    }
+  ],
   content: [
     "./pages/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",

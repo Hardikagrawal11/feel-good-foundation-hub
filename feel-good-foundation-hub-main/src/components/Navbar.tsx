@@ -1,17 +1,19 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useUser, UserButton, SignInButton } from "@clerk/clerk-react";
-import { Menu, X, Heart, Languages } from "lucide-react";
+import { Menu, X, Heart, Languages, Sun, Moon } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import { useTheme } from "./ThemeProvider";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { isHindi, toggleLanguage } = useLanguage();
   const { user, isSignedIn } = useUser();
   const isAdmin = user?.primaryEmailAddress?.emailAddress === "vanshikarao.c@gmail.com";
+  const { theme, setTheme } = useTheme();
 
   return (
-    <nav className="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm">
+    <nav className="fixed w-full z-50 bg-background/90 backdrop-blur-md border-b border-border shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           <Link to="/" className="flex items-center gap-2">
@@ -22,11 +24,18 @@ const Navbar = () => {
           </Link>
 
           <div className="hidden md:flex items-center gap-8">
-            <Link to="/" className="text-gray-600 hover:text-primary font-medium">{isHindi ? "होम" : "Home"}</Link>
-            <a href="/#campaigns" className="text-gray-600 hover:text-primary font-medium">{isHindi ? "अभियान" : "Campaigns"}</a>
+            <Link to="/" className="text-muted-foreground hover:text-primary font-medium">{isHindi ? "होम" : "Home"}</Link>
+            <a href="/#campaigns" className="text-muted-foreground hover:text-primary font-medium">{isHindi ? "अभियान" : "Campaigns"}</a>
             
-            <button onClick={toggleLanguage} className="flex items-center gap-1 text-sm bg-gray-100 px-3 py-1 rounded-full hover:bg-gray-200 transition-colors">
+            <button onClick={toggleLanguage} className="flex items-center gap-1 text-sm bg-muted text-foreground px-3 py-1 rounded-full hover:bg-muted/80 transition-colors">
               <Languages size={14} /> {isHindi ? "English" : "हिंदी"}
+            </button>
+            
+            <button 
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")} 
+              className="p-2 rounded-full bg-muted text-foreground hover:bg-muted/80 transition-colors"
+            >
+              {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
             </button>
 
             {isSignedIn && isAdmin && (

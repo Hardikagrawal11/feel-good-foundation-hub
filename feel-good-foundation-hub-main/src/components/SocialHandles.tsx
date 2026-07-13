@@ -3,11 +3,10 @@ import { Facebook, Twitter, Instagram, Linkedin, Youtube, ExternalLink } from "l
 import SectionHeader from "./SectionHeader";
 
 const socials = [
-  { name: "Instagram", icon: Instagram, handle: "@feelgoodfoundation", url: "https://www.instagram.com/feelgoodfoundation", color: "from-pink-500 to-orange-400", followers: "12.5K" },
-  { name: "Facebook", icon: Facebook, handle: "Feel Good Foundation", url: "https://www.facebook.com/feelgoodfoundation", color: "from-blue-600 to-blue-500", followers: "25K" },
-  { name: "Twitter", icon: Twitter, handle: "@feelgood_ngo", url: "https://twitter.com/feelgood_ngo", color: "from-sky-500 to-sky-400", followers: "8.2K" },
-  { name: "LinkedIn", icon: Linkedin, handle: "Feel Good Foundation", url: "https://www.linkedin.com/company/feelgoodfoundation", color: "from-blue-700 to-blue-600", followers: "5K" },
-  { name: "YouTube", icon: Youtube, handle: "Feel Good Foundation", url: "https://www.youtube.com/@feelgoodfoundation", color: "from-red-600 to-red-500", followers: "3.1K" },
+  { name: "Instagram", icon: Instagram, handle: "@feelgoodfoundation.ngo", url: "https://www.instagram.com/feelgoodfoundation.ngo?igsh=eTdmcm14c28zczV3", color: "from-pink-500 to-orange-400" },
+  { name: "Facebook", icon: Facebook, handle: "Feel Good Foundation", url: "https://www.facebook.com/share/1HaSNDcLfP/", color: "from-blue-600 to-blue-500" },
+  { name: "Twitter", icon: Twitter, handle: "@FeelGood_NGO", url: "https://x.com/FeelGood_NGO", color: "from-sky-500 to-sky-400" },
+  { name: "LinkedIn", icon: Linkedin, handle: "Feel Good Foundation", url: "https://www.linkedin.com/company/feel-good-foundation/", color: "from-blue-700 to-blue-600" },
 ];
 
 const SocialHandles = () => (
@@ -37,7 +36,6 @@ const SocialHandles = () => (
                 <ExternalLink size={12} className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
               <p className="text-xs text-muted-foreground truncate">{social.handle}</p>
-              <p className="text-xs text-primary font-medium mt-0.5">{social.followers} followers</p>
             </div>
           </motion.a>
         ))}

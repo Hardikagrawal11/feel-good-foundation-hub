@@ -39,9 +39,9 @@ const Footer = () => {
           <div>
             <h4 className="font-heading text-base font-semibold mb-4 text-warm-gold">Contact Us</h4>
             <div className="flex flex-col gap-3 text-sm text-muted-foreground">
-              <span className="flex items-center gap-2"><Mail size={14} /> info@feelgoodfoundation.org</span>
-              <span className="flex items-center gap-2"><Phone size={14} /> +91 98765 43210</span>
-              <span className="flex items-center gap-2"><MapPin size={14} /> New Delhi, India</span>
+              <a href="mailto:feelgoodfoundation.ngo@gmail.com" className="flex items-center gap-2 hover:text-warm-gold transition-colors"><Mail size={14} /> feelgoodfoundation.ngo@gmail.com</a>
+              <span className="flex items-center gap-2"><Phone size={14} /> +91 8668456446</span>
+              <span className="flex items-center gap-2"><MapPin size={14} /> Nagpur, India</span>
             </div>
           </div>
 
@@ -49,10 +49,10 @@ const Footer = () => {
             <h4 className="font-heading text-base font-semibold mb-4 text-warm-gold">Follow Us</h4>
             <div className="flex gap-3">
               {[
-                { Icon: Facebook, url: "https://www.facebook.com/feelgoodfoundation" },
-                { Icon: Twitter, url: "https://twitter.com/feelgood_ngo" },
-                { Icon: Instagram, url: "https://www.instagram.com/feelgoodfoundation" },
-                { Icon: Linkedin, url: "https://www.linkedin.com/company/feelgoodfoundation" },
+                { Icon: Facebook, url: "https://www.facebook.com/share/1HaSNDcLfP/" },
+                { Icon: Twitter, url: "https://x.com/FeelGood_NGO" },
+                { Icon: Instagram, url: "https://www.instagram.com/feelgoodfoundation.ngo?igsh=eTdmcm14c28zczV3" },
+                { Icon: Linkedin, url: "https://www.linkedin.com/company/feel-good-foundation/" },
               ].map((social, i) => (
                 <a key={i} href={social.url} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-200">
                   <social.Icon size={18} />
