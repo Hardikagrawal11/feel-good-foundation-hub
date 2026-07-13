@@ -110,7 +110,7 @@ const Index = () => {
       <ImpactStats />
 
       {/* Domains Grid */}
-      <section className="py-16">
+      <section id="campaigns" className="py-16">
         <div className="container mx-auto px-4">
           <SectionHeader 
             title={isHindi ? "हमारे कार्यक्षेत्र" : "Our Domains"} 

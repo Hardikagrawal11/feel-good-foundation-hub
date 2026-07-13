@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Accessibility, Wrench, GraduationCap, Briefcase, Heart, Building, Users, Trophy, Loader2 } from "lucide-react";
-import Navbar from "@/components/Navbar";
+
 import Footer from "@/components/Footer";
 import PageBanner from "@/components/PageBanner";
 import DonateButton from "@/components/DonateButton";
@@ -41,7 +41,7 @@ const DifferentlyAbled = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navbar />
+
       <PageBanner
         title="Differently Abled Support"
         subtitle="Empowering the physically challenged with assistive resources, inclusive opportunities, and community support."

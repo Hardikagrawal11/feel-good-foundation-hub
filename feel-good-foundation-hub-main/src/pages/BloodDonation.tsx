@@ -23,7 +23,7 @@ const CampaignsPage = () => {
       title: isHindi ? "रक्तदान" : "Blood Donation",
       icon: <Droplet className="text-red-600" />,
       color: "red",
-      dbName: "Blood donation camp"
+      dbName: "Blood Donation"
     },
     "animal-welfare": {
       title: isHindi ? "पशु कल्याण" : "Animal Welfare",
@@ -35,13 +35,37 @@ const CampaignsPage = () => {
       title: isHindi ? "महिला कल्याण" : "Women Welfare",
       icon: <Shield className="text-pink-600" />,
       color: "pink",
-      dbName: "Women & Girls Welfare"
+      dbName: "Women Welfare"
     },
     "child-welfare": {
       title: isHindi ? "बाल शिक्षा" : "Child Education",
       icon: <GraduationCap className="text-blue-600" />,
       color: "blue",
-      dbName: "Child Welfare & Education"
+      dbName: "Child Welfare"
+    },
+    "elder-care": {
+      title: isHindi ? "बुजुर्गों की देखभाल" : "Elder Care",
+      icon: <Heart className="text-purple-600" />,
+      color: "purple",
+      dbName: "Elder Care"
+    },
+    "food-security": {
+      title: isHindi ? "खाद्य सुरक्षा" : "Food Security",
+      icon: <Utensils className="text-green-600" />,
+      color: "green",
+      dbName: "Food Security"
+    },
+    "community-development": {
+      title: isHindi ? "सामुदायिक विकास" : "Community Development",
+      icon: <Building className="text-teal-600" />,
+      color: "teal",
+      dbName: "Community Development"
+    },
+    "differently-abled": {
+      title: isHindi ? "दिव्यांग सहायता" : "Differently Abled",
+      icon: <Users className="text-indigo-600" />,
+      color: "indigo",
+      dbName: "Differently Abled"
     }
   };
 
@@ -60,18 +84,19 @@ const CampaignsPage = () => {
     }
   ];
 
+  const fetchCampaigns = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/campaigns?domain=${current.dbName}`);
+      const data = await response.json();
+      setCampaigns(data);
+    } catch (error) {
+      setCampaigns(backupData);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchCampaigns = async () => {
-      try {
-        const response = await fetch(`http://localhost:5000/api/campaigns?domain=${current.dbName}`);
-        const data = await response.json();
-        setCampaigns(data.length > 0 ? data : backupData);
-      } catch (error) {
-        setCampaigns(backupData);
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchCampaigns();
   }, [domainId, isHindi]);
 
@@ -100,7 +125,7 @@ const CampaignsPage = () => {
             <div className="flex justify-center py-20"><Loader2 className="animate-spin" /></div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-              {campaigns.map((camp) => <CampaignCard key={camp._id} campaign={camp} />)}
+              {campaigns.map((camp) => <CampaignCard key={camp._id} campaign={camp} onJoinUpdate={fetchCampaigns} />)}
             </div>
           )}
         </div>

@@ -9,6 +9,9 @@ import About from "./pages/About";
 import Admin from "./pages/Admin";
 import Gallery from "./pages/Gallery"; 
 import AnimalWelfare from "./pages/AnimalWelfare"; 
+import DonatePage from "./pages/DonatePage";
+import SignInPage from "./pages/SignIn";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -31,6 +34,9 @@ function App() {
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/animal-welfare" element={<AnimalWelfare />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/donate" element={<DonatePage />} />
+          <Route path="/signin" element={<SignInPage />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>

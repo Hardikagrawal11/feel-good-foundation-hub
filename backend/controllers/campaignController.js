@@ -40,3 +40,84 @@ exports.getCampaigns = async (req, res) => {
         res.status(500).json({ success: false, message: error.message });
     }
 };
+
+// --- UPDATE CAMPAIGN ---
+exports.updateCampaign = async (req, res) => {
+    try {
+        const { title, description, domain, imageUrl, adminEmail } = req.body;
+        const isLocal = req.hostname === "localhost" || req.hostname === "127.0.0.1";
+        const isAdmin = adminEmail && adminEmail.toLowerCase() === AUTHORIZED_ADMIN.toLowerCase();
+
+        if (!isAdmin && !isLocal) {
+            return res.status(403).json({ message: "Unauthorized Admin Access" });
+        }
+
+        const campaign = await Campaign.findByIdAndUpdate(
+            req.params.id,
+            { title, description, domain, imageUrl },
+            { new: true, runValidators: true }
+        );
+
+        if (!campaign) return res.status(404).json({ message: "Campaign not found" });
+        res.status(200).json({ success: true, message: "Campaign Updated!" });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// --- DELETE CAMPAIGN ---
+exports.deleteCampaign = async (req, res) => {
+    try {
+        const { adminEmail } = req.body;
+        const isLocal = req.hostname === "localhost" || req.hostname === "127.0.0.1";
+        const isAdmin = adminEmail && adminEmail.toLowerCase() === AUTHORIZED_ADMIN.toLowerCase();
+
+        if (!isAdmin && !isLocal) {
+            return res.status(403).json({ message: "Unauthorized Admin Access" });
+        }
+
+        const campaign = await Campaign.findByIdAndDelete(req.params.id);
+        if (!campaign) return res.status(404).json({ message: "Campaign not found" });
+        res.status(200).json({ success: true, message: "Campaign Deleted!" });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// --- JOIN CAMPAIGN (add user as participant) ---
+exports.joinCampaign = async (req, res) => {
+    try {
+        const { email } = req.body;
+        if (!email) return res.status(400).json({ message: "Email is required" });
+
+        const campaign = await Campaign.findByIdAndUpdate(
+            req.params.id,
+            { $addToSet: { participants: email.toLowerCase() } },
+            { new: true }
+        );
+
+        if (!campaign) return res.status(404).json({ message: "Campaign not found" });
+        res.status(200).json({ success: true, message: "Joined campaign!", participantCount: campaign.participants.length });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// --- LEAVE CAMPAIGN (remove user from participants) ---
+exports.leaveCampaign = async (req, res) => {
+    try {
+        const { email } = req.body;
+        if (!email) return res.status(400).json({ message: "Email is required" });
+
+        const campaign = await Campaign.findByIdAndUpdate(
+            req.params.id,
+            { $pull: { participants: email.toLowerCase() } },
+            { new: true }
+        );
+
+        if (!campaign) return res.status(404).json({ message: "Campaign not found" });
+        res.status(200).json({ success: true, message: "Left campaign.", participantCount: campaign.participants.length });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};

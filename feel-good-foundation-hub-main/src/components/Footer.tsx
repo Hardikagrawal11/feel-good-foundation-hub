@@ -48,9 +48,14 @@ const Footer = () => {
           <div>
             <h4 className="font-heading text-base font-semibold mb-4 text-warm-gold">Follow Us</h4>
             <div className="flex gap-3">
-              {[Facebook, Twitter, Instagram, Linkedin].map((Icon, i) => (
-                <a key={i} href="#" className="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-200">
-                  <Icon size={18} />
+              {[
+                { Icon: Facebook, url: "https://www.facebook.com/feelgoodfoundation" },
+                { Icon: Twitter, url: "https://twitter.com/feelgood_ngo" },
+                { Icon: Instagram, url: "https://www.instagram.com/feelgoodfoundation" },
+                { Icon: Linkedin, url: "https://www.linkedin.com/company/feelgoodfoundation" },
+              ].map((social, i) => (
+                <a key={i} href={social.url} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-200">
+                  <social.Icon size={18} />
                 </a>
               ))}
             </div>

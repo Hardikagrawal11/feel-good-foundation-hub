@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Home, Stethoscope, Music, HandHeart, Phone, Users, Loader2 } from "lucide-react";
-import Navbar from "@/components/Navbar";
+
 import Footer from "@/components/Footer";
 import PageBanner from "@/components/PageBanner";
 import DonateButton from "@/components/DonateButton";
@@ -41,7 +41,7 @@ const ElderCare = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navbar />
+
       <PageBanner
         title="Elder Care"
         subtitle="Providing compassionate care, companionship, and dignified support to senior citizens in our communities."

@@ -1,4 +1,4 @@
-import Navbar from "@/components/Navbar";
+
 import Footer from "@/components/Footer";
 import SectionHeader from "@/components/SectionHeader";
 import { motion } from "framer-motion";
@@ -6,7 +6,7 @@ import { Target, Eye, Award, Users } from "lucide-react";
 
 const About = () => (
   <div className="min-h-screen bg-background">
-    <Navbar />
+
     <section className="py-10 sm:py-16 md:py-20">
       <div className="container mx-auto px-4 sm:px-6">
         <SectionHeader title="About Feel Good Foundation" subtitle="Learn about our journey, mission, and the impact we strive to create every day." />

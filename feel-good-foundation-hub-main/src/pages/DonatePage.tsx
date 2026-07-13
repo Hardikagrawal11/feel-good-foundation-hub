@@ -3,7 +3,7 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import { useAuth, useUser } from "@clerk/clerk-react";
 import { motion } from "framer-motion";
 import { CreditCard, Building2, Download, CheckCircle, Heart, Loader2, AlertCircle } from "lucide-react";
-import Navbar from "@/components/Navbar";
+
 import Footer from "@/components/Footer";
 import jsPDF from "jspdf";
 
@@ -13,21 +13,22 @@ const DonatePage = () => {
   const { isLoaded, isSignedIn } = useAuth();
   const { user } = useUser();
 
-  const isAdmin = user?.primaryEmailAddress?.emailAddress === "vanshikarao.c@gmail.com";
-  const purpose = searchParams.get("purpose") || "General Donation";
-  const [step, setStep] = useState<"form" | "receipt">("form");
-  const [amount, setAmount] = useState("");
+  if (!isLoaded) return null;
 
-  if (isAdmin) {
+  if (!isSignedIn) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center text-center p-4">
-        <AlertCircle size={48} className="text-red-500 mb-4" />
-        <h2 className="text-2xl font-bold">Admin Access Restricted</h2>
-        <p className="text-muted-foreground mt-2">Administrators cannot perform donation transactions.</p>
+        <Heart size={48} className="text-primary mb-4" />
+        <h2 className="text-2xl font-bold">Sign in to Donate</h2>
+        <p className="text-muted-foreground mt-2">Please sign in to complete your donation.</p>
         <button onClick={() => navigate("/")} className="mt-6 bg-primary text-white px-6 py-2 rounded-lg">Back to Home</button>
       </div>
     );
   }
+
+  const purpose = searchParams.get("purpose") || "General Donation";
+  const [step, setStep] = useState<"form" | "receipt">("form");
+  const [amount, setAmount] = useState("");
 
   const downloadReceipt = () => {
     const doc = new jsPDF();
@@ -45,7 +46,7 @@ const DonatePage = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navbar />
+
       <section className="py-24 container mx-auto px-4">
          {step === "form" ? (
            <form onSubmit={(e) => { e.preventDefault(); setStep("receipt"); }} className="max-w-md mx-auto bg-card p-8 rounded-2xl border shadow-lg">

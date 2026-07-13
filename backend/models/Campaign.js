@@ -1,36 +1,37 @@
 const mongoose = require('mongoose');
 
-const campaignSchema = new mongoose.Schema({
-  title: { 
-    type: String, 
-    required: true,
-    trim: true 
-  },
-  description: { 
-    type: String, 
-    required: true 
-  },
-  imageUrl: { 
+const CampaignSchema = new mongoose.Schema({
+  title: {
     type: String,
-    default: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80" 
+    required: [true, 'Campaign title is required'],
+    trim: true
   },
-  domain: { 
-    type: String, 
-    required: true,
+  description: {
+    type: String,
+    required: [true, 'Campaign description is required']
+  },
+  domain: {
+    type: String,
+    required: [true, 'Domain type is required'],
+    // Strict white-list matching your frontend structural components exactly
     enum: [
-      "Blood donation camp", 
-      "Child and old age help", 
-      "Women safety", 
+      "Blood Donation", 
+      "Child Welfare", 
+      "Elder Care", 
       "Food Security", 
       "Community Development", 
-      "Differently Abled Support", 
-      "Women sanitary awareness"
-    ] 
+      "Differently Abled", 
+      "Women Welfare"
+    ]
   },
-  createdAt: { 
-    type: Date, 
-    default: Date.now 
+  participants: {
+    type: [String],
+    default: []
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
   }
 });
 
-module.exports = mongoose.model('Campaign', campaignSchema);
+module.exports = mongoose.model('Campaign', CampaignSchema);

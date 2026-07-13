@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { GraduationCap, BookOpen, Heart, ShieldAlert, Paintbrush, Home, Users, Lightbulb, Loader2 } from "lucide-react";
-import Navbar from "@/components/Navbar";
+
 import Footer from "@/components/Footer";
 import PageBanner from "@/components/PageBanner";
 import DonateButton from "@/components/DonateButton";
@@ -46,7 +46,7 @@ const ChildWelfare = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navbar />
+
       <PageBanner
         title="Child Welfare & Education"
         subtitle="Rescuing children from labor, providing education access, and building brighter futures."

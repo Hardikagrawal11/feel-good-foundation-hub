@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { TreePine, Droplets, Lightbulb, Users, BookOpen, Building, Hammer, HeartHandshake, Loader2 } from "lucide-react";
-import Navbar from "@/components/Navbar";
+
 import Footer from "@/components/Footer";
 import PageBanner from "@/components/PageBanner";
 import DonateButton from "@/components/DonateButton";
@@ -41,7 +41,7 @@ const CommunityDevelopment = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navbar />
+
       <PageBanner
         title="Community Development"
         subtitle="Building stronger, self-reliant communities through infrastructure, education, and sustainability."

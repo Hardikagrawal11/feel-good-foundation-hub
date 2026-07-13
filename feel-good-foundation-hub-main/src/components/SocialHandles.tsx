@@ -3,11 +3,11 @@ import { Facebook, Twitter, Instagram, Linkedin, Youtube, ExternalLink } from "l
 import SectionHeader from "./SectionHeader";
 
 const socials = [
-  { name: "Instagram", icon: Instagram, handle: "@feelgoodfoundation", url: "#", color: "from-pink-500 to-orange-400", followers: "12.5K" },
-  { name: "Facebook", icon: Facebook, handle: "Feel Good Foundation", url: "#", color: "from-blue-600 to-blue-500", followers: "25K" },
-  { name: "Twitter", icon: Twitter, handle: "@feelgood_ngo", url: "#", color: "from-sky-500 to-sky-400", followers: "8.2K" },
-  { name: "LinkedIn", icon: Linkedin, handle: "Feel Good Foundation", url: "#", color: "from-blue-700 to-blue-600", followers: "5K" },
-  { name: "YouTube", icon: Youtube, handle: "Feel Good Foundation", url: "#", color: "from-red-600 to-red-500", followers: "3.1K" },
+  { name: "Instagram", icon: Instagram, handle: "@feelgoodfoundation", url: "https://www.instagram.com/feelgoodfoundation", color: "from-pink-500 to-orange-400", followers: "12.5K" },
+  { name: "Facebook", icon: Facebook, handle: "Feel Good Foundation", url: "https://www.facebook.com/feelgoodfoundation", color: "from-blue-600 to-blue-500", followers: "25K" },
+  { name: "Twitter", icon: Twitter, handle: "@feelgood_ngo", url: "https://twitter.com/feelgood_ngo", color: "from-sky-500 to-sky-400", followers: "8.2K" },
+  { name: "LinkedIn", icon: Linkedin, handle: "Feel Good Foundation", url: "https://www.linkedin.com/company/feelgoodfoundation", color: "from-blue-700 to-blue-600", followers: "5K" },
+  { name: "YouTube", icon: Youtube, handle: "Feel Good Foundation", url: "https://www.youtube.com/@feelgoodfoundation", color: "from-red-600 to-red-500", followers: "3.1K" },
 ];
 
 const SocialHandles = () => (
@@ -19,6 +19,8 @@ const SocialHandles = () => (
           <motion.a
             key={social.name}
             href={social.url}
+            target="_blank"
+            rel="noopener noreferrer"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

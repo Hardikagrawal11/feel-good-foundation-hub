@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "@clerk/clerk-react";
+import { useAuth, useClerk, useUser } from "@clerk/clerk-react";
 
 interface DonateButtonProps {
   purpose: string;
@@ -8,12 +8,17 @@ interface DonateButtonProps {
 
 const DonateButton = ({ purpose, size = "md" }: DonateButtonProps) => {
   const { isSignedIn } = useAuth();
+  const { openSignIn } = useClerk();
+  const { user } = useUser();
   const navigate = useNavigate();
+
+  // Hide donate button for admin
+  const isAdmin = user?.primaryEmailAddress?.emailAddress === "vanshikarao.c@gmail.com";
+  if (isAdmin) return null;
 
   const handleClick = () => {
     if (!isSignedIn) {
-      // If user isn't signed in, send them to the sign-in page first
-      navigate("/signin");
+      openSignIn({ forceRedirectUrl: `/donate?purpose=${encodeURIComponent(purpose)}` });
     } else {
       // If signed in, go directly to the donation form
       navigate(`/donate?purpose=${encodeURIComponent(purpose)}`);

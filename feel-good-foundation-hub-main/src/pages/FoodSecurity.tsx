@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Utensils, Truck, Wheat, Apple, HeartHandshake, Building, CalendarCheck, Users, Loader2 } from "lucide-react";
-import Navbar from "@/components/Navbar";
+
 import Footer from "@/components/Footer";
 import PageBanner from "@/components/PageBanner";
 import DonateButton from "@/components/DonateButton";
@@ -41,7 +41,7 @@ const FoodSecurity = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navbar />
+
       <PageBanner
         title="Food Security"
         subtitle="Fighting hunger through 'Meals to Heal', community kitchens, and sustainable food drives."

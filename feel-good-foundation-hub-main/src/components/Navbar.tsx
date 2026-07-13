@@ -23,7 +23,7 @@ const Navbar = () => {
 
           <div className="hidden md:flex items-center gap-8">
             <Link to="/" className="text-gray-600 hover:text-primary font-medium">{isHindi ? "होम" : "Home"}</Link>
-            <Link to="/campaigns" className="text-gray-600 hover:text-primary font-medium">{isHindi ? "अभियान" : "Campaigns"}</Link>
+            <a href="/#campaigns" className="text-gray-600 hover:text-primary font-medium">{isHindi ? "अभियान" : "Campaigns"}</a>
             
             <button onClick={toggleLanguage} className="flex items-center gap-1 text-sm bg-gray-100 px-3 py-1 rounded-full hover:bg-gray-200 transition-colors">
               <Languages size={14} /> {isHindi ? "English" : "हिंदी"}
@@ -34,7 +34,12 @@ const Navbar = () => {
             )}
 
             {isSignedIn ? (
-              <UserButton afterSignOutUrl="/" />
+              <>
+                {!isAdmin && (
+                  <Link to="/profile" className="bg-blue-50 text-blue-600 px-4 py-2 rounded-lg font-bold">{isHindi ? "मेरी प्रोफ़ाइल" : "My Profile"}</Link>
+                )}
+                <UserButton afterSignOutUrl="/" />
+              </>
             ) : (
               <SignInButton mode="modal">
                 <button className="bg-primary text-white px-6 py-2 rounded-full font-semibold">{isHindi ? "साइन इन" : "Sign In"}</button>

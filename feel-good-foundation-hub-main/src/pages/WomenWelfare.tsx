@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"; // Added for dynamic data
 import { motion, AnimatePresence } from "framer-motion";
 import { Shield, Phone, BookOpen, Users, Heart, Package, AlertTriangle, Scale, CheckCircle, Loader2 } from "lucide-react";
-import Navbar from "@/components/Navbar";
+
 import Footer from "@/components/Footer";
 import PageBanner from "@/components/PageBanner";
 import DonateButton from "@/components/DonateButton";
@@ -53,7 +53,7 @@ const WomenWelfare = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navbar />
+
       <PageBanner
         title="Women & Girls Welfare"
         subtitle="Empowering women through safety, education, menstrual hygiene awareness, and community support."
