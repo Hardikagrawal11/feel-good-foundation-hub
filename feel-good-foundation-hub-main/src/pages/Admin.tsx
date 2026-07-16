@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useUser } from "@clerk/clerk-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { LayoutDashboard, Send, CheckCircle2, AlertCircle, Loader2, Pencil, Trash2, X, Users, ChevronDown, ChevronUp, Star } from "lucide-react";
+import { LayoutDashboard, Send, CheckCircle2, AlertCircle, Loader2, Pencil, Trash2, X, Users, ChevronDown, ChevronUp, Star, Calendar, Clock, MapPin, Power, MessageCircle } from "lucide-react";
 
 import Footer from "@/components/Footer";
 
@@ -22,12 +22,18 @@ const Admin = () => {
     location.hash ? location.hash.substring(1) : null
   );
   const [expandedVolunteer, setExpandedVolunteer] = useState<string | null>(null);
+  const [campaignToDelete, setCampaignToDelete] = useState<{ id: string; title: string } | null>(null);
 
   const [formData, setFormData] = useState({
     title: "",
     description: "",
     domain: "Blood Donation",
     imageUrl: "",
+    isEvent: false,
+    date: "",
+    time: "",
+    location: "",
+    isLive: true,
   });
 
   const adminEmail = user?.primaryEmailAddress?.emailAddress;
@@ -97,7 +103,7 @@ const Admin = () => {
 
       if (response.ok) {
         setStatus({ type: "success", msg: result.message });
-        setFormData({ title: "", description: "", domain: "Blood Donation", imageUrl: "" });
+        setFormData({ title: "", description: "", domain: "Blood Donation", imageUrl: "", isEvent: false, date: "", time: "", location: "", isLive: true });
         setEditingId(null);
         fetchAllCampaigns();
       } else {
@@ -118,6 +124,11 @@ const Admin = () => {
       description: campaign.description,
       domain: campaign.domain,
       imageUrl: campaign.imageUrl || "",
+      isEvent: campaign.isEvent || false,
+      date: campaign.date || "",
+      time: campaign.time || "",
+      location: campaign.location || "",
+      isLive: campaign.isLive !== undefined ? campaign.isLive : true,
     });
     setStatus(null);
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -126,16 +137,16 @@ const Admin = () => {
   // Cancel edit
   const handleCancelEdit = () => {
     setEditingId(null);
-    setFormData({ title: "", description: "", domain: "Blood Donation", imageUrl: "" });
+    setFormData({ title: "", description: "", domain: "Blood Donation", imageUrl: "", isEvent: false, date: "", time: "", location: "", isLive: true });
     setStatus(null);
   };
 
   // Delete with confirmation
-  const handleDelete = async (id: string, title: string) => {
-    if (!window.confirm(`Delete campaign "${title}"? This cannot be undone.`)) return;
+  const confirmDelete = async () => {
+    if (!campaignToDelete) return;
 
     try {
-      const response = await fetch(`${API_URL}/${id}`, {
+      const response = await fetch(`${API_URL}/${campaignToDelete.id}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ adminEmail }),
@@ -145,13 +156,43 @@ const Admin = () => {
 
       if (response.ok) {
         setStatus({ type: "success", msg: result.message });
-        if (editingId === id) handleCancelEdit();
+        if (editingId === campaignToDelete.id) handleCancelEdit();
         fetchAllCampaigns();
       } else {
         setStatus({ type: "error", msg: result.message });
       }
     } catch {
       setStatus({ type: "error", msg: "Connectivity Error: Check if backend is running." });
+    } finally {
+      setCampaignToDelete(null);
+    }
+  };
+
+  const handleMessageVolunteer = (volunteerPhone: string, volunteerName: string, campaign: any) => {
+    if (!volunteerPhone || volunteerPhone === 'No Phone') {
+      alert("This volunteer did not provide a phone number.");
+      return;
+    }
+    
+    const details = campaign.isEvent 
+      ? `Date: ${campaign.date || 'TBD'}, Time: ${campaign.time || 'TBD'}, Location: ${campaign.location || 'TBD'}`
+      : `Ongoing Campaign`;
+      
+    const text = `Hi ${volunteerName}, thank you for joining the *${campaign.title}* with Feel Good Foundation! Here are the details you'll need: ${details}. We look forward to seeing you!`;
+    
+    window.open(`https://wa.me/91${volunteerPhone}?text=${encodeURIComponent(text)}`, "_blank");
+  };
+
+  const handleToggleLive = async (campaign: any) => {
+    try {
+      const response = await fetch(`${API_URL}/${campaign._id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...campaign, isLive: !campaign.isLive, adminEmail }),
+      });
+      if (response.ok) fetchAllCampaigns();
+    } catch (error) {
+      console.error("Failed to toggle live status");
     }
   };
 
@@ -208,6 +249,32 @@ const Admin = () => {
                 <textarea required rows={4} value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} className="w-full bg-muted/50 border-none rounded-2xl px-6 py-4 outline-none italic leading-relaxed" placeholder="Describe the mission details..." />
               </div>
 
+              <div className="flex items-center gap-3 p-4 bg-muted/30 rounded-2xl border">
+                <input type="checkbox" id="isEvent" checked={formData.isEvent} onChange={(e) => setFormData({ ...formData, isEvent: e.target.checked })} className="w-5 h-5 accent-primary" />
+                <label htmlFor="isEvent" className="font-bold text-sm cursor-pointer">Is this a specific event? (requires Date/Time/Location)</label>
+              </div>
+
+              <AnimatePresence>
+                {formData.isEvent && (
+                  <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="space-y-6 overflow-hidden">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                        <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">Date</label>
+                        <input type="date" value={formData.date} onChange={(e) => setFormData({ ...formData, date: e.target.value })} className="w-full bg-muted/50 border-none rounded-2xl px-6 py-4 outline-none focus:ring-2 focus:ring-primary font-bold text-sm text-muted-foreground" />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">Time</label>
+                        <input value={formData.time} onChange={(e) => setFormData({ ...formData, time: e.target.value })} className="w-full bg-muted/50 border-none rounded-2xl px-6 py-4 outline-none focus:ring-2 focus:ring-primary font-bold text-sm" placeholder="e.g. 10:00 AM - 2:00 PM" />
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">Location</label>
+                      <input value={formData.location} onChange={(e) => setFormData({ ...formData, location: e.target.value })} className="w-full bg-muted/50 border-none rounded-2xl px-6 py-4 outline-none focus:ring-2 focus:ring-primary font-bold text-sm" placeholder="e.g. Community Hall, Wardha Road, Nagpur" />
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
               <AnimatePresence>
                 {status && (
                   <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className={`p-5 rounded-2xl flex items-center gap-4 ${status.type === "success" ? "bg-green-50 text-green-700 border border-green-200" : "bg-red-50 text-red-700 border border-red-200"}`}>
@@ -248,8 +315,21 @@ const Admin = () => {
                         <span className="inline-flex items-center gap-1 text-xs font-bold bg-blue-50 text-blue-600 px-3 py-1 rounded-full">
                           <Users size={12} /> {camp.participants?.length || 0} Volunteer{(camp.participants?.length || 0) !== 1 ? "s" : ""}
                         </span>
+                        {camp.isEvent && (
+                          <span className={`inline-flex items-center gap-1 text-xs font-bold px-3 py-1 rounded-full ${camp.isLive ? 'bg-green-50 text-green-600' : 'bg-red-50 text-red-600'}`}>
+                            <Power size={12} /> {camp.isLive ? 'LIVE' : 'CLOSED'}
+                          </span>
+                        )}
                       </div>
                       <p className="text-muted-foreground text-sm mt-2 line-clamp-2">{camp.description}</p>
+                      
+                      {camp.isEvent && (
+                        <div className="flex flex-wrap gap-x-4 gap-y-1 mt-3 text-xs font-medium text-muted-foreground/80">
+                          {camp.date && <span className="flex items-center gap-1"><Calendar size={12} /> {camp.date}</span>}
+                          {camp.time && <span className="flex items-center gap-1"><Clock size={12} /> {camp.time}</span>}
+                          {camp.location && <span className="flex items-center gap-1"><MapPin size={12} /> {camp.location}</span>}
+                        </div>
+                      )}
                       <p className="text-muted-foreground/50 text-xs mt-2">
                         {new Date(camp.createdAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
                       </p>
@@ -265,12 +345,37 @@ const Admin = () => {
                             {expandedCampaign === camp._id ? "Hide" : "View"} Volunteer List
                           </button>
                           {expandedCampaign === camp._id && (
-                            <div className="mt-2 bg-blue-50/50 rounded-xl p-3 space-y-1">
-                              {camp.participants.map((email: string, i: number) => (
-                                <p key={i} className="text-xs text-gray-600 font-medium">
-                                  {i + 1}. {email}
-                                </p>
-                              ))}
+                            <div className="mt-2 bg-blue-50/50 rounded-xl p-3 space-y-2">
+                              {camp.participants.map((p: any, i: number) => {
+                                // Handle both old string format and new object format
+                                const isOldFormat = typeof p === 'string';
+                                const name = isOldFormat ? 'Unknown Name' : p.name;
+                                const email = isOldFormat ? p : p.email;
+                                const phone = isOldFormat ? 'No Phone' : p.phone;
+                                
+                                return (
+                                  <div key={i} className="text-xs text-gray-700 font-medium p-3 bg-white/80 rounded-xl border border-blue-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm">
+                                    <div className="flex flex-col">
+                                      <span className="font-bold text-gray-900 text-sm">{i + 1}. {name}</span>
+                                      <span className="text-gray-500">{email}</span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                      <div className="bg-blue-100 text-blue-800 px-2 py-1 rounded-lg font-bold text-xs">
+                                        {phone !== 'No Phone' ? `+91 ${phone}` : phone}
+                                      </div>
+                                      {phone !== 'No Phone' && (
+                                        <button
+                                          onClick={() => handleMessageVolunteer(phone, name, camp)}
+                                          className="p-1.5 bg-green-100 text-green-700 hover:bg-green-200 rounded-lg transition-colors shadow-sm"
+                                          title="Message on WhatsApp"
+                                        >
+                                          <MessageCircle size={16} />
+                                        </button>
+                                      )}
+                                    </div>
+                                  </div>
+                                );
+                              })}
                             </div>
                           )}
                         </div>
@@ -278,6 +383,15 @@ const Admin = () => {
                     </div>
 
                     <div className="flex gap-2 shrink-0 pt-1">
+                      {camp.isEvent && (
+                        <button
+                          onClick={() => handleToggleLive(camp)}
+                          className={`p-2.5 rounded-xl transition-colors ${camp.isLive ? "bg-red-50 text-red-600 hover:bg-red-100" : "bg-green-50 text-green-600 hover:bg-green-100"}`}
+                          title={camp.isLive ? "Turn Off Event" : "Make Event Live"}
+                        >
+                          <Power size={16} />
+                        </button>
+                      )}
                       <button
                         onClick={() => handleEdit(camp)}
                         className="p-2.5 rounded-xl bg-amber-50 text-amber-600 hover:bg-amber-100 transition-colors"
@@ -286,7 +400,7 @@ const Admin = () => {
                         <Pencil size={16} />
                       </button>
                       <button
-                        onClick={() => handleDelete(camp._id, camp.title)}
+                        onClick={() => setCampaignToDelete({ id: camp._id, title: camp.title })}
                         className="p-2.5 rounded-xl bg-red-50 text-red-600 hover:bg-red-100 transition-colors"
                         title="Delete campaign"
                       >
@@ -363,6 +477,44 @@ const Admin = () => {
         </div>
       </div>
       <Footer />
+
+      {/* --- CUSTOM DELETE CONFIRMATION MODAL --- */}
+      <AnimatePresence>
+        {campaignToDelete && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center px-4 bg-black/40 backdrop-blur-sm">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="bg-card p-6 md:p-8 rounded-[2rem] shadow-2xl max-w-md w-full border border-border"
+            >
+              <div className="flex items-center gap-4 mb-4 text-red-600">
+                <div className="p-3 bg-red-100 rounded-full">
+                  <AlertCircle size={28} />
+                </div>
+                <h3 className="text-xl font-bold">Confirm Deletion</h3>
+              </div>
+              <p className="text-muted-foreground mb-6">
+                Are you sure you want to permanently delete the campaign <strong className="text-foreground">"{campaignToDelete.title}"</strong>? This action cannot be undone.
+              </p>
+              <div className="flex items-center gap-3 justify-end">
+                <button
+                  onClick={() => setCampaignToDelete(null)}
+                  className="px-5 py-2.5 rounded-xl font-bold text-sm bg-muted text-muted-foreground hover:bg-muted/80 transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={confirmDelete}
+                  className="px-5 py-2.5 rounded-xl font-bold text-sm bg-red-600 text-white hover:bg-red-700 transition-colors"
+                >
+                  Yes, Delete it
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

@@ -25,10 +25,32 @@ const CampaignSchema = new mongoose.Schema({
       "Animal Welfare"
     ]
   },
-  participants: {
-    type: [String],
-    default: []
+  isEvent: {
+    type: Boolean,
+    default: false
   },
+  date: {
+    type: String,
+    default: ""
+  },
+  time: {
+    type: String,
+    default: ""
+  },
+  location: {
+    type: String,
+    default: ""
+  },
+  isLive: {
+    type: Boolean,
+    default: true
+  },
+  participants: [{
+    name: { type: String, required: true },
+    email: { type: String, required: true },
+    phone: { type: String, required: true },
+    joinedAt: { type: Date, default: Date.now }
+  }],
   createdAt: {
     type: Date,
     default: Date.now

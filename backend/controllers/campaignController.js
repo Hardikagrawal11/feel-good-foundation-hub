@@ -4,7 +4,7 @@ const AUTHORIZED_ADMIN = "vanshikarao.c@gmail.com";
 
 exports.createCampaign = async (req, res) => {
     try {
-        const { title, description, domain, imageUrl, adminEmail } = req.body;
+        const { title, description, domain, imageUrl, adminEmail, isEvent, date, time, location, isLive } = req.body;
         const isLocal = req.hostname === "localhost" || req.hostname === "127.0.0.1";
         const isAdmin = adminEmail && adminEmail.toLowerCase() === AUTHORIZED_ADMIN.toLowerCase();
 
@@ -16,7 +16,12 @@ exports.createCampaign = async (req, res) => {
             title,
             description,
             domain,
-            imageUrl: imageUrl || "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80"
+            imageUrl: imageUrl || "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80",
+            isEvent: isEvent || false,
+            date: date || "",
+            time: time || "",
+            location: location || "",
+            isLive: isLive !== undefined ? isLive : true
         });
 
         await campaign.save();
@@ -44,7 +49,7 @@ exports.getCampaigns = async (req, res) => {
 // --- UPDATE CAMPAIGN ---
 exports.updateCampaign = async (req, res) => {
     try {
-        const { title, description, domain, imageUrl, adminEmail } = req.body;
+        const { title, description, domain, imageUrl, adminEmail, isEvent, date, time, location, isLive } = req.body;
         const isLocal = req.hostname === "localhost" || req.hostname === "127.0.0.1";
         const isAdmin = adminEmail && adminEmail.toLowerCase() === AUTHORIZED_ADMIN.toLowerCase();
 
@@ -54,7 +59,7 @@ exports.updateCampaign = async (req, res) => {
 
         const campaign = await Campaign.findByIdAndUpdate(
             req.params.id,
-            { title, description, domain, imageUrl },
+            { title, description, domain, imageUrl, isEvent, date, time, location, isLive },
             { new: true, runValidators: true }
         );
 
@@ -87,16 +92,25 @@ exports.deleteCampaign = async (req, res) => {
 // --- JOIN CAMPAIGN (add user as participant) ---
 exports.joinCampaign = async (req, res) => {
     try {
-        const { email } = req.body;
-        if (!email) return res.status(400).json({ message: "Email is required" });
+        const { email, name, phone } = req.body;
+        if (!email || !name || !phone) return res.status(400).json({ message: "Name, email, and phone are required" });
 
-        const campaign = await Campaign.findByIdAndUpdate(
-            req.params.id,
-            { $addToSet: { participants: email.toLowerCase() } },
-            { new: true }
+        const campaign = await Campaign.findById(req.params.id);
+        if (!campaign) return res.status(404).json({ message: "Campaign not found" });
+
+        // Check if already joined (handle both old string format and new object format)
+        const alreadyJoined = campaign.participants.some(p => 
+            (typeof p === 'string' && p.toLowerCase() === email.toLowerCase()) || 
+            (p.email && p.email.toLowerCase() === email.toLowerCase())
         );
 
-        if (!campaign) return res.status(404).json({ message: "Campaign not found" });
+        if (alreadyJoined) {
+            return res.status(400).json({ message: "Already joined" });
+        }
+
+        campaign.participants.push({ name, email: email.toLowerCase(), phone });
+        await campaign.save();
+
         res.status(200).json({ success: true, message: "Joined campaign!", participantCount: campaign.participants.length });
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -109,13 +123,18 @@ exports.leaveCampaign = async (req, res) => {
         const { email } = req.body;
         if (!email) return res.status(400).json({ message: "Email is required" });
 
-        const campaign = await Campaign.findByIdAndUpdate(
-            req.params.id,
-            { $pull: { participants: email.toLowerCase() } },
-            { new: true }
-        );
-
+        const campaign = await Campaign.findById(req.params.id);
         if (!campaign) return res.status(404).json({ message: "Campaign not found" });
+
+        // Filter out both old string format and new object format
+        campaign.participants = campaign.participants.filter(p => {
+            if (typeof p === 'string') return p.toLowerCase() !== email.toLowerCase();
+            if (p.email) return p.email.toLowerCase() !== email.toLowerCase();
+            return true;
+        });
+
+        await campaign.save();
+
         res.status(200).json({ success: true, message: "Left campaign.", participantCount: campaign.participants.length });
     } catch (error) {
         res.status(500).json({ message: error.message });
