@@ -3,7 +3,7 @@ import { ImagePlus, Camera } from "lucide-react";
 
 const Gallery = () => {
   const { user } = useUser();
-  const isAdmin = user?.primaryEmailAddress?.emailAddress === "vanshikarao.c@gmail.com";
+  const isAdmin = user?.primaryEmailAddress?.emailAddress === "feelgoodnagpur@gmail.com";
 
   return (
     <div className="pt-32 px-8 max-w-7xl mx-auto pb-20">

@@ -9,7 +9,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { isHindi, toggleLanguage } = useLanguage();
   const { user, isSignedIn } = useUser();
-  const isAdmin = user?.primaryEmailAddress?.emailAddress === "vanshikarao.c@gmail.com";
+  const isAdmin = user?.primaryEmailAddress?.emailAddress === "feelgoodnagpur@gmail.com";
   const { theme, setTheme } = useTheme();
 
   return (

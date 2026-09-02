@@ -98,6 +98,10 @@ exports.joinCampaign = async (req, res) => {
         const campaign = await Campaign.findById(req.params.id);
         if (!campaign) return res.status(404).json({ message: "Campaign not found" });
 
+        if (campaign.isEvent && campaign.isLive === false) {
+            return res.status(400).json({ message: "This event is currently closed." });
+        }
+
         // Check if already joined (handle both old string format and new object format)
         const alreadyJoined = campaign.participants.some(p => 
             (typeof p === 'string' && p.toLowerCase() === email.toLowerCase()) || 

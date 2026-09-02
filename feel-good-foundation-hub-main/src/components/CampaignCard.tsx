@@ -38,7 +38,7 @@ const CampaignCard = ({ campaign, onJoinUpdate }: { campaign: Campaign; onJoinUp
   const [joining, setJoining] = useState(false);
 
   const userEmail = user?.primaryEmailAddress?.emailAddress?.toLowerCase() || "";
-  const isAdmin = userEmail === "vanshikarao.c@gmail.com";
+  const isAdmin = userEmail === "feelgoodnagpur@gmail.com";
   
   // Support both old string format and new object format for participants
   const hasJoined = campaign.participants?.some(p => {
@@ -75,6 +75,12 @@ const CampaignCard = ({ campaign, onJoinUpdate }: { campaign: Campaign; onJoinUp
 
     if (!hasJoined && (!formData.name || !formData.phone)) {
       alert("Please fill in all details to join!");
+      return;
+    }
+
+    if (!hasJoined && isClosed) {
+      alert("This event is closed and no longer accepting volunteers.");
+      setShowJoinModal(false);
       return;
     }
 

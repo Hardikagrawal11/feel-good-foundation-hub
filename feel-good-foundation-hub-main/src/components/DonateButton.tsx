@@ -13,7 +13,7 @@ const DonateButton = ({ purpose, size = "md" }: DonateButtonProps) => {
   const navigate = useNavigate();
 
   // Hide donate button for admin
-  const isAdmin = user?.primaryEmailAddress?.emailAddress === "vanshikarao.c@gmail.com";
+  const isAdmin = user?.primaryEmailAddress?.emailAddress === "feelgoodnagpur@gmail.com";
   if (isAdmin) return null;
 
   const handleClick = () => {

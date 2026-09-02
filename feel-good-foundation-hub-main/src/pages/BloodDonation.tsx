@@ -17,7 +17,7 @@ const CampaignsPage = () => {
   const [campaigns, setCampaigns] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const isAdmin = user?.primaryEmailAddress?.emailAddress === "vanshikarao.c@gmail.com";
+  const isAdmin = user?.primaryEmailAddress?.emailAddress === "feelgoodnagpur@gmail.com";
 
   // 1. Dynamic Page Content based on URL
   const pageConfigs: Record<string, any> = {

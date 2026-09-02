@@ -37,6 +37,7 @@ const Admin = () => {
   });
 
   const adminEmail = user?.primaryEmailAddress?.emailAddress;
+  const isAdmin = adminEmail === "feelgoodnagpur@gmail.com";
 
   // Fetch all campaigns on load
   const fetchAllCampaigns = async () => {
